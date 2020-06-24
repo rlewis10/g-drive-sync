@@ -1,11 +1,10 @@
-const fs = require('fs');
-const readline = require('readline');
 const {google} = require('googleapis');
-const gOauth = require('./googleOAuth')
+const gOAuth = require('./googleOAuth')
 const aws = require('aws-sdk');
 
-let readCredentials = gOauth.readOauthDetails('credentials.json')
-let authorized = gOauth.authorize(readCredentials, listFolders)
+// initialize google oauth credentenatials 
+let readCredentials = gOAuth.readOauthDetails('credentials.json')
+let authorized = gOAuth.authorize(readCredentials, listFolders)
 
 /**
  * Lists all folders in drive
@@ -41,4 +40,5 @@ async function listFolders(auth) {
 
   // pass folderList through makeTree to build object tree of folders
   console.log(folders)
+  return folders
 }

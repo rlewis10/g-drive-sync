@@ -8,21 +8,21 @@ let authorized = gOAuth.authorize(readCredentials, getGfiles)
 
 // get Google meta data on files and folders
 function getGfiles(auth) {
-  let rootFolder = getGdriveList(auth, {corpora: 'user', 
+  let getRootFolder = getGdriveList(auth, {corpora: 'user', 
                                         fields: 'files(name, parents)', 
                                         q: "'root' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
 
-  let folders = getGdriveList(auth, {corpora: 'user', 
+  let getFolders = getGdriveList(auth, {corpora: 'user', 
                                     fields: 'files(id,name,parents), nextPageToken', 
                                     q: "trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
 
-  let files = getGdriveList(auth, {corpora: 'user', 
-                                    fields: 'files(id,name,parents, mimeType), nextPageToken', 
+  let getFiles = getGdriveList(auth, {corpora: 'user', 
+                                    fields: 'files(id,name,parents, mimeType, fullFileExtension, webContentLink, exportLinks, modifiedTime), nextPageToken', 
                                     q: "trashed = false and mimeType != 'application/vnd.google-apps.folder'"})
 
-  files.then(result => {console.log(result)})
-  folders.then(result => {console.log(result)})
-  rootFolder.then(result => {console.log(result)})
+  getFiles.then(result => {console.log(result)})
+  getFolders.then(result => {console.log(result)})
+  getRootFolder.then(result => {console.log(result)})
 }
 
 const getGdriveList = async (auth, params) => {
@@ -37,4 +37,19 @@ const getGdriveList = async (auth, params) => {
   }
   while (nextPgToken)
   return list
+}
+
+let buildPaths = (folders) => {
+  folders.forEach((element, index, folders) => {
+    element['path'] = [element.parent, element.id]
+    element.path.unshift(...makePathArray(folders, element['parents'][0]))
+  })
+}
+
+let makePathArray = (folders, fileParent) => {
+  if(fileParent === null){return []}
+  let filteredFolders = folders.filter((f) => {return f.id === fileParent})
+  let path = makePathArray(folders, filteredFolders[0]['parents'][0])
+  path.push(filteredFolders[0]['parents'][0])
+  return path
 }

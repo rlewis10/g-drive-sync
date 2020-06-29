@@ -6,9 +6,26 @@ const aws = require('aws-sdk');
 let readCredentials = gOAuth.readOauthDetails('credentials.json')
 let authorized = gOAuth.authorize(readCredentials, run)
 
-function run(auth){
-  console.log(`run time:`)
-  getGfiles(auth).then(result => {console.log(result)})
+async function run(auth){
+  
+  let rootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
+  let folders = await getGfiles(auth).then(result => {return result[1]})
+  let files = await getGfiles(auth).then(result => {return result[0]})
+  let random = 'hello world'
+
+  let pathFiles = files.map((file) => ({...file, path: [file['parents'][0], file.name]})
+    //file.path.unshift(...makePathArray(folders, file['parents'][0], rootFolder))
+  )
+
+  console.log(pathFiles)
+}
+
+let makePathArray = (folders, fileParent, rootFolder) => {
+  if(fileParent === rootFolder){return []}
+  let filteredFolders = folders.filter((f) => {return f.id === fileParent})
+  let path = makePathArray(folders, filteredFolders[0]['parents'][0])
+  path.push(filteredFolders[0]['parents'][0])
+  return path
 }
 
 // get Google meta data on files and folders
@@ -45,19 +62,4 @@ const getGdriveList = async (auth, params) => {
   }
   while (nextPgToken)
   return list
-}
-
-let buildPaths = (folders) => {
-  folders.forEach((element, index, folders) => {
-    element['path'] = [element.parent, element.id]
-    element.path.unshift(...makePathArray(folders, element['parents'][0]))
-  })
-}
-
-let makePathArray = (folders, fileParent) => {
-  if(fileParent === null){return []}
-  let filteredFolders = folders.filter((f) => {return f.id === fileParent})
-  let path = makePathArray(folders, filteredFolders[0]['parents'][0])
-  path.push(filteredFolders[0]['parents'][0])
-  return path
 }

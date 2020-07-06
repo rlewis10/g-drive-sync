@@ -1,6 +1,7 @@
-const {google} = require('googleapis');
+const {google} = require('googleapis')
 const gOAuth = require('./googleOAuth')
-const aws = require('aws-sdk');
+const aws = require('aws-sdk')
+const fs = require('fs')
 
 // initialize google oauth credentenatials 
 let readCredentials = gOAuth.readOauthDetails('credentials.json')
@@ -8,16 +9,25 @@ let authorized = gOAuth.authorize(readCredentials, run)
 
 async function run(auth){
   
-  let rootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
-  let folders = await getGfiles(auth).then(result => {return result[1]})
-  let files = await getGfiles(auth).then(result => {return result[0]})
-  let random = 'hello world'
+  let gRootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
+  let gFolders = await getGfiles(auth).then(result => {return result[1]})
+  let gFiles = await getGfiles(auth).then(result => {return result[0]})
 
-  let pathFiles = files.map((file) => ({...file, path: [file['parents'][0], file.name]})
-    //file.path.unshift(...makePathArray(folders, file['parents'][0], rootFolder))
-  )
+  let pathFiles = gFiles
+                      .filter((file) => {return file.parents !== undefined })
+                      .map((file) => ({...file, path: [file['parents'][0], file.name]}))
+                       
+  
+  //pathFiles.path.unshift(...makePathArray(gFolders, pathFiles['parents'][0], gRootFolder))
 
-  console.log(pathFiles)
+  const data = JSON.stringify(gFolders, null, 4)
+  fs.writeFile("gFolders.json", data, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
+  })
+
 }
 
 let makePathArray = (folders, fileParent, rootFolder) => {

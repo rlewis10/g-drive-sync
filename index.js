@@ -29,6 +29,7 @@ async function run(auth){
 
 }
 
+// recursive function to build an array of the file paths top -> bottom
 let makePathArray = (folders, fileParent, rootFolder) => {
   if(fileParent === rootFolder){return []}
   else {

@@ -3,7 +3,7 @@ const gOAuth = require('./googleOAuth')
 const aws = require('aws-sdk')
 const fs = require('fs')
 
-// initialize google oauth credentenatials 
+// initialize google oauth creds 
 let readCredentials = gOAuth.readOauthDetails('credentials.json')
 let authorized = gOAuth.authorize(readCredentials, run)
 
@@ -14,14 +14,13 @@ async function run(auth){
   let gFiles = await getGfiles(auth).then(result => {return result[0]})
 
   let pathFiles = gFiles
-                      .filter((file) => {return file.parents !== undefined })
-                      .map((file) => ({...file, path: [file['parents'][0], file.name]}))
+                      .filter((file) => {return file.hasOwnProperty('parents')})
+                      .map((file) => ({...file, path: makePathArray(gFolders, file['parents'][0], gRootFolder)}))
                        
-  
-  //pathFiles.path.unshift(...makePathArray(gFolders, pathFiles['parents'][0], gRootFolder))
 
-  const data = JSON.stringify(gFolders, null, 4)
-  fs.writeFile("gFolders.json", data, function(err) {
+
+  const data = JSON.stringify(pathFiles, null, 4)
+  fs.writeFile("gFiles.json", data, function(err) {
     if(err) {
         return console.log(err);
     }
@@ -32,24 +31,29 @@ async function run(auth){
 
 let makePathArray = (folders, fileParent, rootFolder) => {
   if(fileParent === rootFolder){return []}
-  let filteredFolders = folders.filter((f) => {return f.id === fileParent})
-  let path = makePathArray(folders, filteredFolders[0]['parents'][0])
-  path.push(filteredFolders[0]['parents'][0])
-  return path
+  else {
+    let filteredFolders = folders.filter((f) => {return f.id === fileParent})
+    if(filteredFolders.length >= 1 && filteredFolders[0].hasOwnProperty('parents')){
+      let path = makePathArray(folders, filteredFolders[0]['parents'][0])
+      path.push(filteredFolders)
+      return path
+    }
+    else{return []}
+  }
 }
 
 // get Google meta data on files and folders
 const getGfiles = (auth) => {
   try {
-    let getRootFolder = getGdriveList(auth, {corpora: 'user', 
+    let getRootFolder = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(name, parents)', 
     q: "'root' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
   
-    let getFolders = getGdriveList(auth, {corpora: 'user', 
+    let getFolders = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(id,name,parents), nextPageToken', 
     q: "trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
   
-    let getFiles = getGdriveList(auth, {corpora: 'user', 
+    let getFiles = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(id,name,parents, mimeType, fullFileExtension, webContentLink, exportLinks, modifiedTime), nextPageToken', 
     q: "trashed = false and mimeType != 'application/vnd.google-apps.folder'"})
   

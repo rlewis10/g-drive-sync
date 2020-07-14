@@ -36,7 +36,7 @@ let makePathArray = (folders, fileParent, rootFolder) => {
     let filteredFolders = folders.filter((f) => {return f.id === fileParent})
     if(filteredFolders.length >= 1 && filteredFolders[0].hasOwnProperty('parents')){
       let path = makePathArray(folders, filteredFolders[0]['parents'][0])
-      path.push(filteredFolders)
+      path.push(filteredFolders[0]['name'])
       return path
     }
     else{return []}

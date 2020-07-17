@@ -1,12 +1,12 @@
-import { google } from 'googleapis'
-import { readOauthDetails, authorize } from './googleOAuth'
+const { google } = require('googleapis')
+const gOAuth =  require('./googleOAuth')
 
 // initialize google oauth creds 
-let readCredentials = readOauthDetails('credentials.json')
-let authorized = authorize(readCredentials, getGFilePaths)
+let readCredentials = gOAuth.readOauthDetails('credentials.json')
+let authorized = gOAuth.authorize(readCredentials, getGFilePaths)
 
 // resolve the promises for getting G files and folders
-export default async function getGFilePaths(auth){
+async function getGFilePaths(auth){
   
   let gRootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
   let gFolders = await getGfiles(auth).then(result => {return result[1]})
@@ -70,3 +70,5 @@ const getGdriveList = async (auth, params) => {
   while (nextPgToken)
   return list
 }
+
+module.exports = {getGFilePaths: getGFilePaths}

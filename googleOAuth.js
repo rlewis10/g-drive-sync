@@ -2,9 +2,9 @@
  * taken from the Google Quickstart guide: https://developers.google.com/drive/api/v3/quickstart/nodejs
  */
 
-import fs from 'fs';
-import readline from 'readline';
-import { google } from 'googleapis';
+const fs  = require('fs')
+const readline = require('readline')
+const {google} = require('googleapis')
 
 
 // If modifying these scopes, delete token.json.
@@ -76,7 +76,7 @@ function getAccessToken(oAuth2Client, callback) {
   });
 }
 
-export {
-    readOauthDetails as readOauthDetails,
-    authorize as authorize
+module.exports = {
+    readOauthDetails: readOauthDetails,
+    authorize: authorize
 }

@@ -1,7 +1,7 @@
 
-import {gFiles} from './getGFiles';
-import fs from 'fs';
-import AWS from 'aws-sdk';
+const gFiles = require('./getGFiles')
+const fs = require('fs')
+const AWS = require('aws-sdk')
 
 /*
 const s3 = new AWS.S3({

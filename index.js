@@ -29,6 +29,6 @@ const uploadFile = () => {
 uploadFile();
 */
 
-gFiles().then(data => {
+gFiles.getGFilePaths().then(data => {
   console.log(data)
 })

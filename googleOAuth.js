@@ -19,7 +19,7 @@ const gAuth = async () => {
         keys.web.redirect_uris[0]
     )
 
-    const getToken = await TokenCheck(oAuth2Client)
+    const getToken = await tokenCheck(oAuth2Client)
     return oAuth2Client.setCredentials(JSON.parse(getToken)) 
 }
 
@@ -30,7 +30,7 @@ const getKeys = async (keyFile) => {
     return JSON.parse(keys)
 }
 
-const TokenCheck = async (oAuth2Client) => {
+const tokenCheck = async (oAuth2Client) => {
     // Check if we have previously stored a token.
     if (fs.existsSync(TOKEN_PATH)) {
         return  await fs.promises.readFile('./token.json')

@@ -1,24 +1,18 @@
 const { google } = require('googleapis')
 const gOAuth =  require('./googleOAuth')
 
-// initialize google oauth creds 
-let readCredentials = gOAuth.readOauthDetails('credentials.json')
-let authorized = gOAuth.authorize(readCredentials, getGFilePaths)
-
 // resolve the promises for getting G files and folders
 async function getGFilePaths(auth){
   
+  //update to use Promise.All()
   let gRootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
   let gFolders = await getGfiles(auth).then(result => {return result[1]})
   let gFiles = await getGfiles(auth).then(result => {return result[0]})
 
   // create the path files and create a new key with array of folder paths, returning an array of files with their folder paths
-  let pathFiles = gFiles
+  return pathFiles = gFiles
                       .filter((file) => {return file.hasOwnProperty('parents')})
                       .map((file) => ({...file, path: makePathArray(gFolders, file['parents'][0], gRootFolder)}))
-
-  return pathFiles
-
 }
 
 // recursive function to build an array of the file paths top -> bottom
@@ -26,12 +20,12 @@ let makePathArray = (folders, fileParent, rootFolder) => {
   if(fileParent === rootFolder){return []}
   else {
     let filteredFolders = folders.filter((f) => {return f.id === fileParent})
-    if(filteredFolders.length >= 1 && filteredFolders[0].hasOwnProperty('parents')){
+    if(filteredFolders.length >= 1 && filteredFolders[0].hasOwnProperty('parents')) {
       let path = makePathArray(folders, filteredFolders[0]['parents'][0])
       path.push(filteredFolders[0]['name'])
       return path
     }
-    else{return []}
+    else {return []}
   }
 }
 

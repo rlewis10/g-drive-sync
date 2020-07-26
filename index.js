@@ -1,4 +1,4 @@
-
+const gOAuth =  require('./googleOAuth')
 const gFiles = require('./getGFiles')
 const fs = require('fs')
 const AWS = require('aws-sdk')
@@ -29,6 +29,13 @@ const uploadFile = () => {
 uploadFile();
 */
 
-gFiles.getGFilePaths().then(data => {
-  console.log(data)
-})
+const run = async () => {
+
+  const auth = await gOAuth.get()
+
+  gFiles.getGFilePaths(auth).then(data => {
+    console.log(data)
+  })
+}
+
+run()

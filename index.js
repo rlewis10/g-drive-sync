@@ -31,9 +31,9 @@ uploadFile();
 
 const run = async () => {
 
-  const auth = await gOAuth.get()
+  const gAuth = await gOAuth.get()
 
-  gFiles.getGFilePaths(auth).then(data => {
+  gFiles.getGFilePaths(gAuth).then(data => {
     console.log(data)
   })
 }

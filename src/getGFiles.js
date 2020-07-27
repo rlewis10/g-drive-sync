@@ -2,10 +2,10 @@ const { google } = require('googleapis')
 const gOAuth =  require('./googleOAuth')
 
 // resolve the promises for getting G files and folders
-const getGFilePaths = async (auth) => {
+async function getGFilePaths(auth){
   
-  //update to use Promise.All() and merge with getGfiles
-  let gRootFolder = await getGfiles(auth).then(result => {return result[2]})
+  //update to use Promise.All()
+  let gRootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
   let gFolders = await getGfiles(auth).then(result => {return result[1]})
   let gFiles = await getGfiles(auth).then(result => {return result[0]})
 
@@ -30,7 +30,8 @@ let makePathArray = (folders, fileParent, rootFolder) => {
 }
 
 // get Google meta data on files and folders
-const getGfiles = async (auth) => {
+const getGfiles = (auth) => {
+  try {
     let getRootFolder = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(name, parents)', 
     q: "'root' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
@@ -43,8 +44,11 @@ const getGfiles = async (auth) => {
     fields: 'files(id,name,parents, mimeType, fullFileExtension, webContentLink, exportLinks, modifiedTime), nextPageToken', 
     q: "trashed = false and mimeType != 'application/vnd.google-apps.folder'"})
   
-    const pathFiles = Promise.all([getFiles, getFolders, getRootFolder[0]['parents'][0]])
-      .catch(err => {console.log(`Error in retriving responses from Google Drive: ${err}`)})
+    return Promise.all([getFiles, getFolders, getRootFolder])
+  }
+  catch(error) {
+    return `Error in retriving a file reponse from Google Drive: ${error}`
+  }
 }
 
 const getGdriveList = async (auth, params) => {

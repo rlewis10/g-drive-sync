@@ -7,12 +7,12 @@ const {OAuth2Client} = require('google-auth-library')
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive']
 // The file token.json stores the user's access and refresh tokens, and is created automatically when the authorization flow completes for the first time.
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = './cred/token.json';
 
 // Create a new auth, and go through the OAuth2 content workflow.
 const gAuth = async () => {
     // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file, which should be downloaded from the Google Developers Console.
-    const keys = await getKeys('./keys.json')
+    const keys = await getKeys('./cred/keys.json')
     const auth = new OAuth2Client(
         keys.web.client_id,
         keys.web.client_secret,
@@ -34,7 +34,7 @@ const getKeys = async (keyFile) => {
 const checkToken = async (auth) => {
     // Check if we have previously stored a token.
     if (fs.existsSync(TOKEN_PATH)) {
-        return  await fs.promises.readFile('./token.json')
+        return  await fs.promises.readFile('./cred/token.json')
             .catch(err => {console.log(`Error reading Token from file: ${err}`)})
     }
     else {

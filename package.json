@@ -1,0 +1,27 @@
+{
+  "name": "driveSync",
+  "version": "1.0.0",
+  "description": "Node.js app to perform a daily backup of personal google drive files and folder structure and place it into AWS S3.",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.715.0",
+    "google-auth-library": "^6.0.5",
+    "googleapis": "^56.0.0",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlewis10/driveSync.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rlewis10/driveSync/issues"
+  },
+  "homepage": "https://github.com/rlewis10/driveSync#readme"
+}

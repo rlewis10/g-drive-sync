@@ -2,25 +2,26 @@
 const fs = require('fs')
 const readline = require('readline')
 const {google} = require('googleapis')
-
+const {OAuth2Client} = require('google-auth-library')
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive'];
+const SCOPES = ['https://www.googleapis.com/auth/drive']
 // The file token.json stores the user's access and refresh tokens, and is created automatically when the authorization flow completes for the first time.
 const TOKEN_PATH = 'token.json';
 
-// Create a new OAuth2Client, and go through the OAuth2 content workflow.
+// Create a new auth, and go through the OAuth2 content workflow.
 const gAuth = async () => {
     // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file, which should be downloaded from the Google Developers Console.
     const keys = await getKeys('./keys.json')
-    const oAuth2Client = new google.auth.OAuth2(
+    const auth = new OAuth2Client(
         keys.web.client_id,
         keys.web.client_secret,
         keys.web.redirect_uris[0]
     )
 
-    const getToken = await tokenCheck(oAuth2Client)
-    return oAuth2Client.setCredentials(JSON.parse(getToken)) 
+    const getToken = JSON.parse(await checkToken(auth))
+    auth.setCredentials(getToken.tokens)
+    return auth
 }
 
 const getKeys = async (keyFile) => {
@@ -30,21 +31,21 @@ const getKeys = async (keyFile) => {
     return JSON.parse(keys)
 }
 
-const tokenCheck = async (oAuth2Client) => {
+const checkToken = async (auth) => {
     // Check if we have previously stored a token.
     if (fs.existsSync(TOKEN_PATH)) {
         return  await fs.promises.readFile('./token.json')
             .catch(err => {console.log(`Error reading Token from file: ${err}`)})
     }
     else {
-        return await getNewToken(oAuth2Client)
+        return await getNewToken(auth)
     }
 }
 
-const getNewToken = (oAuth2Client) => {
-    const authUrl = oAuth2Client.generateAuthUrl({
+const getNewToken = (auth) => {
+    const authUrl = auth.generateAuthUrl({
         access_type: 'offline',
-        scope: SCOPES,
+        scope: SCOPES
         })
 
     return new Promise(resolve => {
@@ -58,7 +59,7 @@ const getNewToken = (oAuth2Client) => {
         // get auth code from url after accepting consent
         rl.question('Enter the code from that page here: ', async (code) => {
             console.log(`returned token: ${code}`)
-            const token = await oAuth2Client.getToken(code)
+            const token = await auth.getToken(code)
 
             // Store the token to disk for later program executions
             await fs.promises.writeFile(TOKEN_PATH, JSON.stringify(token))

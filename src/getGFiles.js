@@ -1,14 +1,13 @@
 const { google } = require('googleapis')
 const gOAuth =  require('./googleOAuth')
+const stream = require('stream')
 
 // resolve the promises for getting G files and folders
 async function getGFilePaths(auth){
-  
   //update to use Promise.All()
   let gRootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
   let gFolders = await getGfiles(auth).then(result => {return result[1]})
   let gFiles = await getGfiles(auth).then(result => {return result[0]})
-
   // create the path files and create a new key with array of folder paths, returning an array of files with their folder paths
   return pathFiles = gFiles
                       .filter((file) => {return file.hasOwnProperty('parents')})
@@ -54,7 +53,7 @@ const getGfiles = (auth) => {
 const getGdriveList = async (auth, params) => {
   let list = []
   let nextPgToken
-  const drive = google.drive({version: 'v3', auth})
+  const drive = google.drive({version: 'v3', auth: auth})
   do {
     let res = await drive.files.list(params)
     list.push(...res.data.files)
@@ -65,4 +64,6 @@ const getGdriveList = async (auth, params) => {
   return list
 }
 
-module.exports = {getGFilePaths: getGFilePaths}
+module.exports =  {
+                  getGFilePaths: getGFilePaths
+                }

@@ -1,13 +1,27 @@
 const { google } = require('googleapis')
 const gOAuth =  require('./googleOAuth')
-const stream = require('stream')
+
+// download gFile, non google docs files. Downloaded as a stream of data and pipped into the awsUpload function
+const getGFileContent = async (fileObj) => {
+  const gKeys = await gOAuth.get()
+  const drive = google.drive({version: 'v3', auth: gKeys})
+  return drive.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
+    .then(res => {
+      return new Promise((resolve, reject) => {
+        res.data
+          .on('end', () => {resolve()})
+          .on('error', err => {reject(`Error downloading Google file: ${err}`)})
+          .pipe(awsUpload(fileObj.path))
+          })
+      })
+}
 
 // resolve the promises for getting G files and folders
-async function getGFilePaths(auth){
+const getGFilePaths = async () => {
   //update to use Promise.All()
-  let gRootFolder = await getGfiles(auth).then(result => {return result[2][0]['parents'][0]})
-  let gFolders = await getGfiles(auth).then(result => {return result[1]})
-  let gFiles = await getGfiles(auth).then(result => {return result[0]})
+  let gRootFolder = await getGfiles().then(result => {return result[2][0]['parents'][0]})
+  let gFolders = await getGfiles().then(result => {return result[1]})
+  let gFiles = await getGfiles().then(result => {return result[0]})
   // create the path files and create a new key with array of folder paths, returning an array of files with their folder paths
   return pathFiles = gFiles
                       .filter((file) => {return file.hasOwnProperty('parents')})
@@ -29,17 +43,17 @@ let makePathArray = (folders, fileParent, rootFolder) => {
 }
 
 // get Google meta data on files and folders
-const getGfiles = (auth) => {
+const getGfiles = () => {
   try {
-    let getRootFolder = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
+    let getRootFolder = getGdriveList({corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(name, parents)', 
     q: "'root' in parents and trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
   
-    let getFolders = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
+    let getFolders = getGdriveList({corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(id,name,parents), nextPageToken', 
     q: "trashed = false and mimeType = 'application/vnd.google-apps.folder'"})
   
-    let getFiles = getGdriveList(auth, {corpora: 'user', includeItemsFromAllDrives: false,
+    let getFiles = getGdriveList({corpora: 'user', includeItemsFromAllDrives: false,
     fields: 'files(id,name,parents, mimeType, fullFileExtension, webContentLink, exportLinks, modifiedTime), nextPageToken', 
     q: "trashed = false and mimeType != 'application/vnd.google-apps.folder'"})
   
@@ -50,10 +64,11 @@ const getGfiles = (auth) => {
   }
 }
 
-const getGdriveList = async (auth, params) => {
+const getGdriveList = async (params) => {
+  const gKeys = await gOAuth.get()
+  const drive = google.drive({version: 'v3', auth: gKeys})
   let list = []
   let nextPgToken
-  const drive = google.drive({version: 'v3', auth: auth})
   do {
     let res = await drive.files.list(params)
     list.push(...res.data.files)
@@ -65,5 +80,6 @@ const getGdriveList = async (auth, params) => {
 }
 
 module.exports =  {
-                  getGFilePaths: getGFilePaths
-                }
+  getGFilePaths: getGFilePaths,
+  getGFileContent: getGFileContent
+}

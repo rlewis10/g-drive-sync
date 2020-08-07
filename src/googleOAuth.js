@@ -1,4 +1,3 @@
-
 const fs = require('fs')
 const readline = require('readline')
 const {google} = require('googleapis')
@@ -32,15 +31,15 @@ const gAuth = async () => {
     return auth
 }
 
+// Download your OAuth2 configuration from the Google console and save as keys.json file
 const getKeys = async (keyFile) => {
-    // Download your OAuth2 configuration from the Google console and save as keys.json file
     const keys = await fs.promises.readFile(keyFile)
         .catch(err => {console.log(`Error reading keys from file: ${err}`)})
     return JSON.parse(keys)
 }
 
+// Check if we have previously stored a token.
 const checkToken = async (auth) => {
-    // Check if we have previously stored a token.
     if (fs.existsSync(TOKEN_PATH)) {
         return  await fs.promises.readFile(TOKEN_PATH)
             .catch(err => {console.log(`Error reading Token from file: ${err}`)})
@@ -78,8 +77,9 @@ const getNewToken = (auth) => {
         })
 
     })
-}    
+}  
+  
 module.exports = {
     get: gAuth,
     read : getKeys
-    }
+}

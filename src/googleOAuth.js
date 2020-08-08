@@ -38,7 +38,7 @@ const getKeys = async (keyFile) => {
     return JSON.parse(keys)
 }
 
-// Check if we have previously stored a token.
+// Check if we have previously stored a token
 const checkToken = async (auth) => {
     if (fs.existsSync(TOKEN_PATH)) {
         return  await fs.promises.readFile(TOKEN_PATH)
@@ -49,6 +49,7 @@ const checkToken = async (auth) => {
     }
 }
 
+// get the new token
 const getNewToken = (auth) => {
     const authUrl = auth.generateAuthUrl({
         access_type: 'offline',

@@ -42,7 +42,7 @@ let makePathArray = (folders, fileParent, rootFolder) => {
   }
 }
 
-// get Google meta data on files and folders
+// get meta-data list of files from gDrive, with query parameters
 const getGfiles = () => {
   try {
     let getRootFolder = getGdriveList({corpora: 'user', includeItemsFromAllDrives: false,
@@ -64,6 +64,7 @@ const getGfiles = () => {
   }
 }
 
+// make call out gDrive to get meta-data files. Code adds all files in a single array which are returned in pages
 const getGdriveList = async (params) => {
   const gKeys = await gOAuth.get()
   const drive = google.drive({version: 'v3', auth: gKeys})

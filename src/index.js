@@ -1,15 +1,15 @@
 const gFiles = require('./getGFiles')
 const awsUpload = require('./awsUpload')
-const gOAuth =  require('./googleOAuth')
-const { google } = require('googleapis')
 
 const run = () => {
 
+  // check if getGFilePaths returns length > 0. 
   gFiles.getGFilePaths().then(data => {
     console.log(data)
   })
 
-  //await getGFileContent(drive, fileObj)
+  // get individual file from gDrive and pipe it to AWS S3.
+  //getGFileContent(drive, fileObj)
 
 }
 

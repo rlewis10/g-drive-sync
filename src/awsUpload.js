@@ -2,8 +2,10 @@ const gOAuth =  require('./googleOAuth')
 const aws = require('aws-sdk')
 const stream = require('stream')
 
+// AWS S3 bucket name to upload to
 const awsBucketName = 'rlewis-backup'
 
+// get AWS keys stored in local file and pass through to AWS auth
 const getAWSKeys = async () => {
     const awsKeys = await gOAuth.read('./cred/awskeys.json').then(result => {return result})
     aws.config.update({

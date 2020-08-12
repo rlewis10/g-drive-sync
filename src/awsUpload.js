@@ -1,4 +1,4 @@
-const gOAuth =  require('./googleOAuth')
+const { read } =  require('./googleOAuth')
 const aws = require('aws-sdk')
 const stream = require('stream')
 
@@ -7,7 +7,7 @@ const awsBucketName = 'rlewis-backup'
 
 // get AWS keys stored in local file and pass through to AWS auth
 const getAWSKeys = async () => {
-    const awsKeys = await gOAuth.read('./cred/awskeys.json').then(result => {return result})
+    const awsKeys = await read('./cred/awskeys.json').then(result => {return result})
     aws.config.update({
         accessKeyId: awsKeys.keys.aws_access_key_id,
         secretAccessKey: awsKeys.keys.aws_secret_access_key
@@ -23,9 +23,9 @@ const awsUpload = async (path) => {
         Key: path, // file will be saved as bucket-name/[uniquekey.csv]
         Body: pass  // file data passed through stream
     } 
-    new AWS.S3().upload(params).promise()
+    new aws.S3().upload(params).promise()
         .catch( err => console.log(`Error, unable to upload to S3: ${err}`))
     return pass
 }
 
-module.exports = {awsUpload: awsUpload}
+module.exports = {s3Up: awsUpload}

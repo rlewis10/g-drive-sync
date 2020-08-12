@@ -1,0 +1,7 @@
+{
+    "spreadsheet" :"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "document":"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "presentation": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "form": "text/html",
+    "script": "text/html"
+}

@@ -1,20 +1,6 @@
 const { google } = require('googleapis')
 const gOAuth =  require('./googleOAuth')
 
-// download gFile, non google docs files. Downloaded as a stream of data and pipped into the awsUpload function
-const getGFileContent = async (fileObj) => {
-  const gKeys = await gOAuth.get()
-  const drive = google.drive({version: 'v3', auth: gKeys})
-  return drive.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
-    .then(res => {
-      return new Promise((resolve, reject) => {
-        res.data
-          .on('end', () => {resolve()})
-          .on('error', err => {reject(`Error downloading Google file: ${err}`)})
-          .pipe(awsUpload(fileObj.path))
-          })
-      })
-}
 
 // resolve the promises for getting G files and folders
 const getGFilePaths = async () => {
@@ -82,5 +68,4 @@ const getGdriveList = async (params) => {
 
 module.exports =  {
   getGFilePaths: getGFilePaths,
-  getGFileContent: getGFileContent
 }

@@ -8,7 +8,7 @@ const run = async () => {
 
   gdocs.getGPaths()
     .then(data => {
-      data.forEach(file => gDocs.getGFiles(file))
+      data.forEach(file => gdocs.getGFiles(file))
     })
     .then(console.log('Done!'))
     

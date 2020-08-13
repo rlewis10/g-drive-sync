@@ -19,18 +19,16 @@ const gFileContentDownload = (fileObj) => {
 const getGDocsContent = async (pipeTo, fileObj) => { 
   let mimeTypeSplit = fileObj.mimeType.split('.')
   let mimeTypeLookup = mimeTypeSplit[mimeTypeSplit.length-1]
-  let mimeTypeExt = gOAuth.read('./data/gMimeType.json')
-  console.log(mimeTypeExt[mimeTypeLookup])
-  console.log(mimeTypeLookup)
+  let mimeTypeExt = await gOAuth.read('./data/gMimeType.json')
   const gKeys = await gOAuth.get()
   const drive = google.drive({ version: 'v3', auth: gKeys })
-  return drive.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]}, {responseType: 'stream'})
+  return drive.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]['format']}, {responseType: 'stream'})
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
           .on('end', () => {resolve(`Done downloading gdocs file from Google Drive`)})
           .on('error', err => {reject(`Error downloading file ${err}`)})
-          .pipe(pipeTo(fileObj.path.join('/').concat('/',fileObj.name)))
+          .pipe(pipeTo(fileObj.path.join('/').concat('/',fileObj.name,'.',mimeTypeExt[mimeTypeLookup]['ext'])))
       })
     })
 }
@@ -45,7 +43,7 @@ const getGFileContent = async (pipeTo, fileObj) => {
         res.data
           .on('end', () => {resolve(`Done downloading file from Google Drive`)})
           .on('error', err => {reject(`Error downloading file ${err}`)})
-          .pipe(pipeTo(fileObj.path.join('/').concat('/',fileObj.name)))
+          .pipe(pipeTo(fileObj.path.join('/').concat('/',fileObj.name,'.',fileObj.fullFileExtension)))
       })
     })
 }

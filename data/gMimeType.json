@@ -1,7 +1,26 @@
 {
-    "spreadsheet" :"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "document":"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "presentation": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-    "form": "text/html",
-    "script": "text/html"
+    "spreadsheet" : 
+        {   "ext" : "xlsx", 
+            "format" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+    "document" : 
+        {
+            "ext" : "docx", 
+            "format" : "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        },
+    "presentation" : 
+        {
+            "ext" : "pptx", 
+            "format" : "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+    "form": 
+        {
+            "ext" : "html", 
+            "format" : "text/html"
+        },
+    "script":
+        {
+            "ext" : "html", 
+            "format" : "text/html"
+        }
 }

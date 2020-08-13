@@ -15,11 +15,11 @@ const getAWSKeys = async () => {
 }
 
 // upload a file to AWS S3 by passing the file stream from getGFileContent into the 'body' parameter of the upload
-const uploadS3 = () => {
+const uploadS3 = (filePath) => {
     let pass = new stream.PassThrough()
     let params = {
       Bucket: awsBucketName, // bucket-name
-      Key: 'filePath.jpg', // file will be saved as bucket-name/[uniquekey.csv]
+      Key: filePath, // file will be saved as bucket-name/[uniquekey.csv]
       Body: pass  // file data passed through stream
     } 
     new aws.S3().upload(params).promise()

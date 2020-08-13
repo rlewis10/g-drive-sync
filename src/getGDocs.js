@@ -1,6 +1,54 @@
 const { google } = require('googleapis')
 const gOAuth =  require('./googleOAuth')
+const aws = require('./awsUpload')
 
+// select where to use 'list' or 'export' API based on gdocs file type and upload to s3.
+const gFileContentDownload = (fileObj) => {
+  if(fileObj.mimeType.includes('application/vnd.google-apps')) {
+    if(fileObj.mimeType == 'application/vnd.google-apps.shortcut') {
+      return
+    }
+    return getGDocsContent(aws.uploadS3,fileObj)
+  }
+  else {
+    return getGFileContent(aws.uploadS3,fileObj)
+  }
+}
+
+// download stream of gdocs files and pipe to destination
+const getGDocsContent = async (pipeTo, fileObj) => { 
+  let mimeTypeSplit = fileObj.mimeType.split('.')
+  let mimeTypeLookup = mimeTypeSplit[mimeTypeSplit.length-1]
+  let mimeTypeExt = gOAuth.read('./data/gMimeType.json')
+  console.log(mimeTypeExt[mimeTypeLookup])
+  console.log(mimeTypeLookup)
+  const gKeys = await gOAuth.get()
+  const drive = google.drive({ version: 'v3', auth: gKeys })
+  return drive.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]}, {responseType: 'stream'})
+    .then(res => {
+      return new Promise((resolve, reject) => {
+        res.data
+          .on('end', () => {resolve(`Done downloading gdocs file from Google Drive`)})
+          .on('error', err => {reject(`Error downloading file ${err}`)})
+          .pipe(pipeTo(fileObj.path.join('/').concat('/',fileObj.name)))
+      })
+    })
+}
+
+// download stream of NON gdocs files and pipe to destination
+const getGFileContent = async (pipeTo, fileObj) => {  
+  const gKeys = await gOAuth.get()
+  const drive = google.drive({ version: 'v3', auth: gKeys })
+  return drive.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
+    .then(res => {
+      return new Promise((resolve, reject) => {
+        res.data
+          .on('end', () => {resolve(`Done downloading file from Google Drive`)})
+          .on('error', err => {reject(`Error downloading file ${err}`)})
+          .pipe(pipeTo(fileObj.path.join('/').concat('/',fileObj.name)))
+      })
+    })
+}
 
 // resolve the promises for getting G files and folders
 const getGFilePaths = async () => {
@@ -67,5 +115,6 @@ const getGdriveList = async (params) => {
 }
 
 module.exports =  {
-  getGFilePaths: getGFilePaths,
+  getGPaths: getGFilePaths,
+  getGFiles : gFileContentDownload
 }

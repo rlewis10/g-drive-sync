@@ -1,36 +1,41 @@
   
-const gOAuth =  require('./googleOAuth')
-const gFiles = require('./getGFiles')
-const { google } = require('googleapis')
-const fs = require('fs')
-const stream = require('stream')
-const aws = require('aws-sdk')
-const aws1 = require('./awsUpload')
+const gDocs = require('./getGDocs')
+const aws = require('./awsUpload')
+
+let file2 = {
+  "id": "1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0",
+  "name": "Richard_Lewis_CV_Jun_2020_v1",
+  "mimeType": "application/vnd.google-apps.document",
+  "parents": [
+      "0B503_VQuaCQ2cjRNWnZYa1paTWs"
+  ],
+  "modifiedTime": "2020-07-12T15:22:53.811Z",
+  "exportLinks": {
+      "application/rtf": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=rtf",
+      "application/vnd.oasis.opendocument.text": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=odt",
+      "text/html": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=html",
+      "application/pdf": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=pdf",
+      "application/epub+zip": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=epub",
+      "application/zip": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=zip",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=docx",
+      "text/plain": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=txt"
+  },
+  "path": [
+      "CV"
+  ]
+}
 
 const run = async () => {
 
-  aws1.awsAuth()
-  console.log(await getGFileContent())
+  await aws.awsAuth()
 
-  //gFiles.getGFilePaths(gKeys).then(data => {
+  //gDocs.getGPaths(gKeys).then(data => {
   //  console.log(data)
   //})
-}
 
-// download gFile
-const getGFileContent = async () => {  
-  const gKeys = await gOAuth.get()
-  const drive = google.drive({ version: 'v3', auth: gKeys })
-  return drive.files.get({fileId: '1bNr_ZM90fM0EnPcFPfdd2LnB7Z2Tts3LiQ', mimeType: "image/jpeg", alt: 'media'}, {responseType: 'stream'})
-    .then(res => {
-      return new Promise((resolve, reject) => {
-        res.data
-          .on('end', () => {resolve(`Done downloading file`)})
-          .on('error', err => {reject(`Error downloading file ${err}`)})
-          .pipe(aws1.uploadS3())
-      })
-    })
-}
+  console.log(await gDocs.getGFiles(file2))
 
+
+}
 
 run()

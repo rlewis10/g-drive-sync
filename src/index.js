@@ -2,26 +2,20 @@
 const gDocs = require('./getGDocs')
 const aws = require('./awsUpload')
 
-let file2 = {
-  "id": "1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0",
-  "name": "Richard_Lewis_CV_Jun_2020_v1",
-  "mimeType": "application/vnd.google-apps.document",
+let file2 =     {
+  "id": "0B1r2V6Rg_NByLVFqYnItU1FUREE",
+  "name": "tash.jpg",
+  "mimeType": "image/jpeg",
   "parents": [
-      "0B503_VQuaCQ2cjRNWnZYa1paTWs"
+      "0B1r2V6Rg_NByR0RDQUsyRWVoTU0"
   ],
-  "modifiedTime": "2020-07-12T15:22:53.811Z",
-  "exportLinks": {
-      "application/rtf": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=rtf",
-      "application/vnd.oasis.opendocument.text": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=odt",
-      "text/html": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=html",
-      "application/pdf": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=pdf",
-      "application/epub+zip": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=epub",
-      "application/zip": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=zip",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=docx",
-      "text/plain": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=txt"
-  },
+  "webContentLink": "https://drive.google.com/uc?id=0B1r2V6Rg_NByLVFqYnItU1FUREE&export=download",
+  "modifiedTime": "2016-02-29T10:40:18.000Z",
+  "fullFileExtension": "jpg",
   "path": [
-      "CV"
+      "People",
+      "Family",
+      "Tash"
   ]
 }
 
@@ -33,7 +27,7 @@ const run = async () => {
   //  console.log(data)
   //})
 
-  console.log(await gDocs.getGFiles(file2))
+  gDocs.getGFiles(file2)
 
 
 }

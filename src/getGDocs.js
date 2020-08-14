@@ -1,6 +1,15 @@
 const { google } = require('googleapis')
-const gOAuth =  require('./googleOAuth')
+const gOAuth  =  require('./googleOAuth')
 const aws = require('./awsUpload')
+
+let gapi
+
+// get OAuth2Client 
+const getOAuth2Client = async () => {
+  let OAuth2Client = await gOAuth.get()
+  gapi = google.drive({ version: 'v3', auth: OAuth2Client} )
+  console.log(gapi)
+}
 
 // select where to use 'list' or 'export' API based on gdocs file type and upload to s3.
 const gFileContentDownload = (fileObj) => {
@@ -21,9 +30,8 @@ const getGDocsContent = async (pipeTo, fileObj) => {
   let mimeTypeLookup = mimeTypeSplit[mimeTypeSplit.length-1]
   let mimeTypeExt = await gOAuth.read('./data/gMimeType.json')
   let fileExt = fileObj.path.join('/').concat('/',fileObj.name,'.',mimeTypeExt[mimeTypeLookup]['ext'])
-  const gKeys = await gOAuth.get()
-  const drive = google.drive({ version: 'v3', auth: gKeys })
-  return drive.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]['format']}, {responseType: 'stream'})
+
+  return gapi.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]['format']}, {responseType: 'stream'})
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
@@ -37,9 +45,8 @@ const getGDocsContent = async (pipeTo, fileObj) => {
 // download stream of NON gdocs files and pipe to destination
 const getGFileContent = async (pipeTo, fileObj) => {  
   let fileExt = fileObj.path.join('/').concat('/',fileObj.name)
-  const gKeys = await gOAuth.get()
-  const drive = google.drive({ version: 'v3', auth: gKeys })
-  return drive.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
+
+  return gapi.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
@@ -100,12 +107,11 @@ const getGfiles = () => {
 
 // make call out gDrive to get meta-data files. Code adds all files in a single array which are returned in pages
 const getGdriveList = async (params) => {
-  const gKeys = await gOAuth.get()
-  const drive = google.drive({version: 'v3', auth: gKeys})
+
   let list = []
   let nextPgToken
   do {
-    let res = await drive.files.list(params)
+    let res = await gapi.files.list(params)
     list.push(...res.data.files)
     nextPgToken = res.data.nextPageToken
     params.pageToken = nextPgToken
@@ -116,5 +122,6 @@ const getGdriveList = async (params) => {
 
 module.exports =  {
   getGPaths: getGFilePaths,
-  getGFiles : gFileContentDownload
+  getGFiles : gFileContentDownload,
+  getOAuth2Client : getOAuth2Client
 }

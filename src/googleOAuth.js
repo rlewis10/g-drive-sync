@@ -2,6 +2,8 @@ const fs = require('fs')
 const readline = require('readline')
 const {google} = require('googleapis')
 const {OAuth2Client} = require('google-auth-library')
+const file = require('./fileIO')
+
 
 // If modifying these scopes, delete token.json.
 const SCOPES = [
@@ -19,8 +21,8 @@ const TOKEN_PATH = './cred/gtoken.json';
 // Create a new auth, and go through the OAuth2 content workflow.
 const gAuth = async () => {
     // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file, which should be downloaded from the Google Developers Console.
-    const keys = await getKeys('./cred/gkeys.json')
-    const auth = new OAuth2Client(
+    const keys = await file.read('./cred/gkeys.json')
+    const auth = new OAuth2Client ( 
         keys.web.client_id,
         keys.web.client_secret,
         keys.web.redirect_uris[0]
@@ -29,20 +31,14 @@ const gAuth = async () => {
     const getToken = JSON.parse(await checkToken(auth))
     auth.setCredentials(getToken.tokens)
     return auth
-}
 
-// Download your OAuth2 configuration from the Google console and save as keys.json file
-const getKeys = async (keyFile) => {
-    const keys = await fs.promises.readFile(keyFile)
-        .catch(err => {console.log(`Error reading keys from file: ${err}`)})
-    return JSON.parse(keys)
 }
 
 // Check if we have previously stored a token
 const checkToken = async (auth) => {
     if (fs.existsSync(TOKEN_PATH)) {
         return  await fs.promises.readFile(TOKEN_PATH)
-            .catch(err => {console.log(`Error reading Token from file: ${err}`)})
+            .catch(err => {console.error(`Error reading Token from file: ${err}`)})
     }
     else {
         return await getNewToken(auth)
@@ -81,6 +77,5 @@ const getNewToken = (auth) => {
 }  
   
 module.exports = {
-    get: gAuth,
-    read : getKeys
+    get: gAuth
 }

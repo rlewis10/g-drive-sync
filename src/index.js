@@ -1,28 +1,22 @@
-  
 const gdocs = require('./getGDocs')
 const aws = require('./awsUpload')
 const goath = require('./googleOAuth')
+const file = require('./fileIO')
 
 const run = async () => {
-
   await aws.awsAuth()
   await gdocs.getOAuth2Client()
+  //await file.write(gdocs.getGPaths(), './data/gFiles.json')
+  
 
 
-  let sample = goath.read('./data/sample.json')
+  file.read('./data/sample.json')
     .then(data => {
       console.log(`Total number of fies in gDrive to backup: ${data.length}`)
-      data.forEach(file => gdocs.getGFiles(file))
+      data.forEach(file => {
+        gdocs.getGFiles(file)
+      })
     })
-
-/* 
-  gdocs.getGPaths()
-    .then(data => {
-      console.log(`Total number of fies in gDrive to backup: ${data.length}`)
-      data.forEach(file => gdocs.getGFiles(file))
-    })
-  .catch(err)
-*/
 
 }
 

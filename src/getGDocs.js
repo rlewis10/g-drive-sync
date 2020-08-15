@@ -1,6 +1,7 @@
 const { google } = require('googleapis')
 const gOAuth  =  require('./googleOAuth')
 const aws = require('./awsUpload')
+const file = require('./fileIO')
 
 let gapi
 
@@ -8,7 +9,6 @@ let gapi
 const getOAuth2Client = async () => {
   let OAuth2Client = await gOAuth.get()
   gapi = google.drive({ version: 'v3', auth: OAuth2Client} )
-  console.log(gapi)
 }
 
 // select where to use 'list' or 'export' API based on gdocs file type and upload to s3.
@@ -28,7 +28,7 @@ const gFileContentDownload = (fileObj) => {
 const getGDocsContent = async (pipeTo, fileObj) => { 
   let mimeTypeSplit = fileObj.mimeType.split('.')
   let mimeTypeLookup = mimeTypeSplit[mimeTypeSplit.length-1]
-  let mimeTypeExt = await gOAuth.read('./data/gMimeType.json')
+  let mimeTypeExt = await file.read('./data/gMimeType.json')
   let fileExt = fileObj.path.join('/').concat('/',fileObj.name,'.',mimeTypeExt[mimeTypeLookup]['ext'])
 
   return gapi.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]['format']}, {responseType: 'stream'})
@@ -50,7 +50,7 @@ const getGFileContent = async (pipeTo, fileObj) => {
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
-          .on('end', () => {resolve(console.log(`Done downloading gdocs file: ${fileExt}`))})
+          .on('end', () => {resolve(console.log(`Done downloading file: ${fileExt}`))})
           .on('error', err => {reject(console.log(`Error downloading file ${err}`))})
           .pipe(pipeTo(fileExt))
       })

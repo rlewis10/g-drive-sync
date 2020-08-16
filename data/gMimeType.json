@@ -22,5 +22,10 @@
         {
             "ext" : "html", 
             "format" : "text/html"
-        }
+        },
+    "drive-sdk":
+        {
+            "ext" : "pdf", 
+            "format" : "application/pdf"
+        }        
 }

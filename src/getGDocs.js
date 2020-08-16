@@ -36,7 +36,7 @@ const getGDocsContent = async (pipeTo, fileObj) => {
       return new Promise((resolve, reject) => {
         res.data
           .on('end', () => {resolve(console.log(`Done downloading gdocs file: ${fileExt}`))})
-          .on('error', err => {reject(console.log(`Error downloading file ${err}`))})
+          .on('error', err => {reject(console.error(`Error downloading file ${err}`))})
           .pipe(pipeTo(fileExt))
       })
     })
@@ -51,7 +51,7 @@ const getGFileContent = async (pipeTo, fileObj) => {
       return new Promise((resolve, reject) => {
         res.data
           .on('end', () => {resolve(console.log(`Done downloading file: ${fileExt}`))})
-          .on('error', err => {reject(console.log(`Error downloading file ${err}`))})
+          .on('error', err => {reject(console.error(`Error downloading file ${err}`))})
           .pipe(pipeTo(fileExt))
       })
     })

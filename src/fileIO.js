@@ -7,7 +7,8 @@ const read = async (file) => {
 }
 
 const write = async (file, path) => {
-    await fs.promises.writeFile(path, JSON.stringify(file))
+    let data = await file
+    fs.promises.writeFile(path, JSON.stringify(data, undefined, 2))
         .catch(err => {console.error(`Error writing to file: ${err}`)})
     return path
 }

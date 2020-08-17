@@ -1,17 +1,434 @@
 [
   {
-    "id": "1AK8LQgD61qTIrDm4zqc6PAkH3-reJ7of",
-    "name": "Salesforce Marketing Cloud MC - Email Preference Center (EPC) - diagram",
-    "mimeType": "application/vnd.google-apps.drive-sdk.7081045131",
+    "id": "1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k",
+    "name": "Stock portfolio tracker",
+    "mimeType": "application/vnd.google-apps.spreadsheet",
     "parents": [
-      "1E91RaKgUjoJo9eY_lGde-o9NMevW189v"
+      "1o3TCx8j7t9E_aHBuQ8iIu3hTfhXZnunY"
     ],
-    "modifiedTime": "2020-03-18T05:49:06.000Z",
+    "modifiedTime": "2020-08-14T19:32:15.563Z",
+    "exportLinks": {
+      "application/x-vnd.oasis.opendocument.spreadsheet": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=ods",
+      "text/tab-separated-values": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=tsv",
+      "application/pdf": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=pdf",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=xlsx",
+      "text/csv": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=csv",
+      "application/zip": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=zip",
+      "application/vnd.oasis.opendocument.spreadsheet": "https://docs.google.com/spreadsheets/export?id=1J2Kn335hLfBnrCvYGBPzrDxToKeZlD7SYNs1mjU6u_k&exportFormat=ods"
+    },
+    "path": [
+      "Finances",
+      "Shares"
+    ]
+  },
+  {
+    "id": "1UkPXdLcz3TeW6yv2dfFah2_b2gqVm3l8",
+    "name": "PGCurationCache.sqlite.sqlite-shm",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1mQLcIgYi1jYDtpbNzdO_pU1jJ09pZ1y-"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1UkPXdLcz3TeW6yv2dfFah2_b2gqVm3l8&export=download",
+    "modifiedTime": "2020-08-14T19:30:44.000Z",
+    "fullFileExtension": "sqlite.sqlite-shm",
+    "path": [
+      "Pictures",
+      "Photos Library.photoslibrary",
+      "private",
+      "com.apple.photoanalysisd",
+      "caches",
+      "graph"
+    ]
+  },
+  {
+    "id": "1ui8fZg3SCoZT2jHP-Kv6vTx4aeI2ypda",
+    "name": "PhotoAnalysisServicePreferences.plist",
+    "mimeType": "text/xml",
+    "parents": [
+      "1mQLcIgYi1jYDtpbNzdO_pU1jJ09pZ1y-"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1ui8fZg3SCoZT2jHP-Kv6vTx4aeI2ypda&export=download",
+    "modifiedTime": "2020-08-14T19:25:26.000Z",
+    "fullFileExtension": "plist",
+    "path": [
+      "Pictures",
+      "Photos Library.photoslibrary",
+      "private",
+      "com.apple.photoanalysisd",
+      "caches",
+      "graph"
+    ]
+  },
+  {
+    "id": "1zsJM0K0Eth1teSlhQnpISvhxWq9hX2Kb",
+    "name": "construction-photosgraph.kgdb-shm",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1cX9veaIskqXEmsRh-AJqalOZEh9XLY-j"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1zsJM0K0Eth1teSlhQnpISvhxWq9hX2Kb&export=download",
+    "modifiedTime": "2020-08-14T19:25:26.000Z",
+    "fullFileExtension": "kgdb-shm",
+    "path": [
+      "Pictures",
+      "Photos Library.photoslibrary",
+      "private",
+      "com.apple.photoanalysisd",
+      "caches",
+      "graph",
+      "PhotosGraph"
+    ]
+  },
+  {
+    "id": "1c8_h4zmkSh886zCr6lLr3ST8JyGQ2UYn",
+    "name": "photosgraph.kgdb",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1cX9veaIskqXEmsRh-AJqalOZEh9XLY-j"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1c8_h4zmkSh886zCr6lLr3ST8JyGQ2UYn&export=download",
+    "modifiedTime": "2020-08-14T19:25:26.000Z",
+    "fullFileExtension": "kgdb",
+    "path": [
+      "Pictures",
+      "Photos Library.photoslibrary",
+      "private",
+      "com.apple.photoanalysisd",
+      "caches",
+      "graph",
+      "PhotosGraph"
+    ]
+  },
+  {
+    "id": "1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0",
+    "name": "Richard_Lewis_CV_Aug_2020_v1",
+    "mimeType": "application/vnd.google-apps.document",
+    "parents": [
+      "0B503_VQuaCQ2cjRNWnZYa1paTWs"
+    ],
+    "modifiedTime": "2020-08-11T18:26:58.224Z",
+    "exportLinks": {
+      "application/rtf": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=rtf",
+      "application/vnd.oasis.opendocument.text": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=odt",
+      "text/html": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=html",
+      "application/pdf": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=pdf",
+      "application/epub+zip": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=epub",
+      "application/zip": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=zip",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=docx",
+      "text/plain": "https://docs.google.com/feeds/download/documents/export/Export?id=1JB_cEI6tOZlmaGytIlaPb_8MO--NMBhqF60-JFduVY0&exportFormat=txt"
+    },
+    "path": [
+      "CV"
+    ]
+  },
+  {
+    "id": "1RVzEy4ZSqzfBn7H7wIrKFwxaGAq_Db-U",
+    "name": "btaRegisterStudentMock.cls",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1_Qv6Agngich0rvlD4dMkxl9APtVIsIKj"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1RVzEy4ZSqzfBn7H7wIrKFwxaGAq_Db-U&export=download",
+    "modifiedTime": "2019-07-02T13:23:08.000Z",
+    "fullFileExtension": "cls",
+    "path": [
+      "Freelance Work",
+      "Freelance Work - MindTattoo - Salesforce APEX",
+      "Apex"
+    ]
+  },
+  {
+    "id": "159oDfpP6zJ5Dtu6dxZyrZkuW-5XVxkhE",
+    "name": "btaQueueableClassMock.cls",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1_Qv6Agngich0rvlD4dMkxl9APtVIsIKj"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=159oDfpP6zJ5Dtu6dxZyrZkuW-5XVxkhE&export=download",
+    "modifiedTime": "2019-07-02T13:21:27.000Z",
+    "fullFileExtension": "cls",
+    "path": [
+      "Freelance Work",
+      "Freelance Work - MindTattoo - Salesforce APEX",
+      "Apex"
+    ]
+  },
+  {
+    "id": "1gyEam0UnVdpDG93t2EfCy8XosaHRy2Hi",
+    "name": "LeadHandler.cls",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1_Qv6Agngich0rvlD4dMkxl9APtVIsIKj"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1gyEam0UnVdpDG93t2EfCy8XosaHRy2Hi&export=download",
+    "modifiedTime": "2019-07-02T13:17:30.000Z",
+    "fullFileExtension": "cls",
+    "path": [
+      "Freelance Work",
+      "Freelance Work - MindTattoo - Salesforce APEX",
+      "Apex"
+    ]
+  },
+  {
+    "id": "1iv6M18TfjyiKIzNS7uX8TOHQJlstFeqr",
+    "name": "Getting_Started_with_Social+Studio_Workbook.docx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "parents": [
+      "1eAdEyrieBhOSqQ_yX0jMawdyJ14lSX3_"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1iv6M18TfjyiKIzNS7uX8TOHQJlstFeqr&export=download",
+    "modifiedTime": "2019-06-28T13:39:57.453Z",
+    "fullFileExtension": "docx",
     "path": [
       "Salesforce ",
       "Marketing Cloud",
-      "SFMC - EPC"
+      "SFMC - Social Studio"
+    ]
+  },
+  {
+    "id": "1lYGE38dt1_XoRg_p9Rskn-cQ-iyl347Y",
+    "name": "Marketing Cloud - Mobile Connect Training.pptx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "parents": [
+      "1IWKh2fM7Kc_YF0LVkyD1ZA4nrjQElXFW"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1lYGE38dt1_XoRg_p9Rskn-cQ-iyl347Y&export=download",
+    "modifiedTime": "2019-06-28T13:28:36.146Z",
+    "fullFileExtension": "pptx",
+    "path": [
+      "Salesforce ",
+      "Marketing Cloud",
+      "SFMC - Mobile Studio",
+      "Mobile-Connect"
+    ]
+  },
+  {
+    "id": "1aDsuvIJZWBmdbtabpInhO9JFzvZCCX7H",
+    "name": "06 2019.pdf",
+    "mimeType": "application/pdf",
+    "parents": [
+      "1xxwvzeiW0qi6vQmSBzq8Q59Us9j53Rxe"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1aDsuvIJZWBmdbtabpInhO9JFzvZCCX7H&export=download",
+    "modifiedTime": "2019-06-27T14:18:56.217Z",
+    "fullFileExtension": "pdf",
+    "path": [
+      "Finances",
+      "Pay Slips",
+      "2019"
+    ]
+  },
+  {
+    "id": "1pXA9-ROJYyLqOG6tfc5x57pPLHzzhz8a",
+    "name": "04 2019.pdf",
+    "mimeType": "application/pdf",
+    "parents": [
+      "1xxwvzeiW0qi6vQmSBzq8Q59Us9j53Rxe"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1pXA9-ROJYyLqOG6tfc5x57pPLHzzhz8a&export=download",
+    "modifiedTime": "2019-06-27T14:18:55.057Z",
+    "fullFileExtension": "pdf",
+    "path": [
+      "Finances",
+      "Pay Slips",
+      "2019"
+    ]
+  },
+  {
+    "id": "1nbPS2GhSK6qtH8UD8HhuBGnaubvnJfN5",
+    "name": "05 2019.pdf",
+    "mimeType": "application/pdf",
+    "parents": [
+      "1xxwvzeiW0qi6vQmSBzq8Q59Us9j53Rxe"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1nbPS2GhSK6qtH8UD8HhuBGnaubvnJfN5&export=download",
+    "modifiedTime": "2019-06-27T14:18:54.595Z",
+    "fullFileExtension": "pdf",
+    "path": [
+      "Finances",
+      "Pay Slips",
+      "2019"
+    ]
+  },
+  {
+    "id": "1slqDZEcyG96p2KXFitMVVPkTGyXpJfe2zw",
+    "name": "IMG_20190625_160022.jpg",
+    "mimeType": "image/jpeg",
+    "parents": [
+      "1Rg_5EQy01QroyQnc2K_rleboBA"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1slqDZEcyG96p2KXFitMVVPkTGyXpJfe2zw&export=download",
+    "modifiedTime": "2019-06-25T16:01:29.000Z",
+    "fullFileExtension": "jpg",
+    "path": [
+      "Google Photos",
+      "2019"
+    ]
+  },
+  {
+    "id": "1KhmnI9kReHs6sVwvLHlYLviRXeadKmyj5g",
+    "name": "IMG_20190625_132636.jpg",
+    "mimeType": "image/jpeg",
+    "parents": [
+      "1Rg_5EQy01QroyQnc2K_rleboBA"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1KhmnI9kReHs6sVwvLHlYLviRXeadKmyj5g&export=download",
+    "modifiedTime": "2019-06-25T12:30:38.000Z",
+    "fullFileExtension": "jpg",
+    "path": [
+      "Google Photos",
+      "2019"
+    ]
+  },
+  {
+    "id": "1Xaqz15S2zpsMSMIjeKrpYtjfbURUBagw",
+    "name": "btaWebCallout.apxc",
+    "mimeType": "application/octet-stream",
+    "parents": [
+      "1jGeB6_aMmtX-o_kzNCX6DpcMz5fG4aza"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1Xaqz15S2zpsMSMIjeKrpYtjfbURUBagw&export=download",
+    "modifiedTime": "2019-06-25T00:06:49.000Z",
+    "fullFileExtension": "apxc",
+    "path": [
+      "Coding",
+      "workProjects",
+      "Salesforce APEX"
+    ]
+  },
+  {
+    "id": "1_U5-xnuJATOJMKQpj29-qzreTOKzplwC",
+    "name": "Lewis, Richard, FTE - Employment Agreement, 29.07.2019.pdf",
+    "mimeType": "application/pdf",
+    "parents": [
+      "1apBWyRKDNE16tYHItVlZ3Ee9uYqlJckO"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1_U5-xnuJATOJMKQpj29-qzreTOKzplwC&export=download",
+    "modifiedTime": "2019-06-24T20:37:30.000Z",
+    "fullFileExtension": "pdf",
+    "path": [
+      "Career ",
+      "Job Applications - Contracts",
+      "Expedia Job Application"
+    ]
+  },
+  {
+    "id": "1EIjbzvMeWuQWMjgp8Q8wczzG85gff3M0",
+    "name": "Nutmeg SoW v3.pdf",
+    "mimeType": "application/pdf",
+    "parents": [
+      "1P3atRXtObrKtI4y1-5vuY35vxVcI7Fwx"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1EIjbzvMeWuQWMjgp8Q8wczzG85gff3M0&export=download",
+    "modifiedTime": "2019-06-24T16:16:29.606Z",
+    "fullFileExtension": "pdf",
+    "path": [
+      "Salesforce ",
+      "Documentation ",
+      "Scope of Works SOW",
+      "Sales Cloud SOW"
+    ]
+  },
+  {
+    "id": "1LSqmhdBV-sxjqxHeoFjUikxbd7LbW6nX",
+    "name": "Nutmeg Service Cloud Deliverables.xlsx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "parents": [
+      "1UcDf5DSnALspXGevYtnQzI-Nqj9cws4n"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1LSqmhdBV-sxjqxHeoFjUikxbd7LbW6nX&export=download",
+    "modifiedTime": "2019-06-24T16:15:50.185Z",
+    "fullFileExtension": "xlsx",
+    "path": [
+      "Salesforce ",
+      "Documentation ",
+      "Implementation Service Offerings"
+    ]
+  },
+  {
+    "id": "17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c",
+    "name": "CV_Covering Letter_SalesforceProductOwner_ARR_2019",
+    "mimeType": "application/vnd.google-apps.document",
+    "parents": [
+      "0B503_VQuaCQ2N3c5ZFZ1UTQtbkU"
+    ],
+    "modifiedTime": "2019-06-18T10:23:51.130Z",
+    "exportLinks": {
+      "application/rtf": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=rtf",
+      "application/vnd.oasis.opendocument.text": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=odt",
+      "text/html": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=html",
+      "application/pdf": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=pdf",
+      "application/epub+zip": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=epub",
+      "application/zip": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=zip",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=docx",
+      "text/plain": "https://docs.google.com/feeds/download/documents/export/Export?id=17lwiCqS_xym9O3FJ_ztSGlGh33gd-O0eqv0xC2hv64c&exportFormat=txt"
+    },
+    "path": [
+      "CV",
+      "Covering Letters"
+    ]
+  },
+  {
+    "id": "19Qq1sh4MNn3HE_O8he8Qf3zqKLfe2Mmj",
+    "name": "Adam Marks CV 2.docx",
+    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "parents": [
+      "0B503_VQuaCQ2YlN0OG5mTTFyTzg"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=19Qq1sh4MNn3HE_O8he8Qf3zqKLfe2Mmj&export=download",
+    "modifiedTime": "2019-06-17T21:53:35.000Z",
+    "fullFileExtension": "docx",
+    "path": [
+      "CV",
+      "Other Peoples CV"
+    ]
+  },
+  {
+    "id": "1BMKL-VHji2LNwmWuPLaMHBSxvb8FX3zh",
+    "name": "NJ260519_WEDDING_0879.JPG",
+    "mimeType": "image/jpeg",
+    "parents": [
+      "1zFRX_32u-WwH2T0OGuzKiCmQGMZJqxNa"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1BMKL-VHji2LNwmWuPLaMHBSxvb8FX3zh&export=download",
+    "modifiedTime": "2019-06-16T14:11:44.000Z",
+    "fullFileExtension": "JPG",
+    "path": [
+      "People",
+      "Family",
+      "Tash & Josh Wedding Official"
+    ]
+  },
+  {
+    "id": "13iGyvkyMDR8vG-EZiGlIRTSUih6VPJ4t",
+    "name": "NJ260519_WEDDING_0787.JPG",
+    "mimeType": "image/jpeg",
+    "parents": [
+      "1zFRX_32u-WwH2T0OGuzKiCmQGMZJqxNa"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=13iGyvkyMDR8vG-EZiGlIRTSUih6VPJ4t&export=download",
+    "modifiedTime": "2019-06-16T05:57:44.000Z",
+    "fullFileExtension": "JPG",
+    "path": [
+      "People",
+      "Family",
+      "Tash & Josh Wedding Official"
+    ]
+  },
+  {
+    "id": "1vY8qijD1mpsVLHLliEyqo1zuwMf9f2dl",
+    "name": "NJ260519_WEDDING_1036.JPG",
+    "mimeType": "image/jpeg",
+    "parents": [
+      "1zFRX_32u-WwH2T0OGuzKiCmQGMZJqxNa"
+    ],
+    "webContentLink": "https://drive.google.com/uc?id=1vY8qijD1mpsVLHLliEyqo1zuwMf9f2dl&export=download",
+    "modifiedTime": "2019-06-16T05:53:06.000Z",
+    "fullFileExtension": "JPG",
+    "path": [
+      "People",
+      "Family",
+      "Tash & Josh Wedding Official"
     ]
   }
 ]
-

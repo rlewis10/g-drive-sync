@@ -8,9 +8,9 @@ let numFilesUploaded
 let numFilesErrored
 
 const run = async () => {
-  await aws.awsAuth()
   await gdocs.getOAuth2Client()
-  await file.write(gdocs.getGPaths(), './data/gFiles.json')
+  await aws.awsAuth()
+  //await file.write(gdocs.getGPaths(), './data/gFiles.json')
   
   const allfiles = await file.read('./data/sampleData.json')
   numFilesTotal = allfiles.length

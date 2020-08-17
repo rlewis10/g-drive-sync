@@ -3,12 +3,12 @@ const gOAuth  =  require('./googleOAuth')
 const aws = require('./awsUpload')
 const file = require('./fileIO')
 
-let gapi
+let drive
 
 // get OAuth2Client 
 const getOAuth2Client = async () => {
   let OAuth2Client = await gOAuth.get()
-  gapi = google.drive({ version: 'v3', auth: OAuth2Client} )
+  drive = google.drive({ version: 'v3', auth: OAuth2Client} )
 }
 
 // select where to use 'list' or 'export' API based on gdocs file type and upload to s3.
@@ -31,7 +31,7 @@ const getGDocsContent = async (pipeTo, fileObj) => {
   let mimeTypeExt = await file.read('./data/gMimeType.json')
   let fileExt = fileObj.path.join('/').concat('/',fileObj.name,'.',mimeTypeExt[mimeTypeLookup]['ext'])
 
-  return gapi.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]['format']}, {responseType: 'stream'})
+  return drive.files.export({fileId: fileObj.id, mimeType: mimeTypeExt[mimeTypeLookup]['format']}, {responseType: 'stream'})
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
@@ -46,7 +46,7 @@ const getGDocsContent = async (pipeTo, fileObj) => {
 const getGFileContent = async (pipeTo, fileObj) => {  
   let fileExt = fileObj.path.join('/').concat('/',fileObj.name)
 
-  return gapi.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
+  return drive.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
@@ -111,7 +111,7 @@ const getGdriveList = async (params) => {
   let list = []
   let nextPgToken
   do {
-    let res = await gapi.files.list(params)
+    let res = await drive.files.list(params)
     list.push(...res.data.files)
     nextPgToken = res.data.nextPageToken
     params.pageToken = nextPgToken

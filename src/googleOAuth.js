@@ -1,37 +1,34 @@
 const fs = require('fs')
 const readline = require('readline')
 const {google} = require('googleapis')
-const {OAuth2Client} = require('google-auth-library')
 const file = require('./fileIO')
 
 
 // If modifying these scopes, delete token.json.
-const SCOPES = [
-    'https://www.googleapis.com/auth/drive',
-    'https://www.googleapis.com/auth/drive.appdata',
-    'https://www.googleapis.com/auth/drive.file',
-    'https://www.googleapis.com/auth/drive.metadata',
-    'https://www.googleapis.com/auth/drive.metadata.readonly',
-    'https://www.googleapis.com/auth/drive.photos.readonly',
-    'https://www.googleapis.com/auth/drive.readonly'
-  ]
+const SCOPES = ['https://www.googleapis.com/auth/drive']
+
 // The file token.json stores the user's access and refresh tokens, and is created automatically when the authorization flow completes for the first time.
 const TOKEN_PATH = './cred/gtoken.json';
 
 // Create a new auth, and go through the OAuth2 content workflow.
 const gAuth = async () => {
-    // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file, which should be downloaded from the Google Developers Console.
-    const keys = await file.read('./cred/gkeys.json')
-    const auth = new OAuth2Client ( 
-        keys.web.client_id,
-        keys.web.client_secret,
-        keys.web.redirect_uris[0]
-    )
+    try {
+        // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file, which should be downloaded from the Google Developers Console.
+        const keys = await file.read('./cred/gkeys.json')
+        const auth = new google.auth.OAuth2 ( 
+            keys.web.client_id,
+            keys.web.client_secret,
+            keys.web.redirect_uris[0]
+        )
 
-    const getToken = JSON.parse(await checkToken(auth))
-    auth.setCredentials(getToken.tokens)
-    return auth
-
+        const getToken = JSON.parse(await checkToken(auth))
+        auth.setCredentials(getToken.tokens)
+        console.log(`Successfully authenticated with Google`)
+        return auth
+    }
+    catch (err) {
+        console.error(`Error authenticating with Google: ${err}`)
+    }
 }
 
 // Check if we have previously stored a token

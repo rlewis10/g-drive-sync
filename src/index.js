@@ -19,17 +19,31 @@ const run = async () => {
   queue.on('next', () => {
     console.log(`Task is completed.  Size: ${queue.size}  Pending: ${queue.pending}`);
   })
+  queue.on('onIdle', () => {
+    console.log(`Backup Complete!`);
+  })
 
-  const allfiles = await file.read('./data/gFiles.json')
+  const allfiles = await file.read('./data/sampleData.json')
   numFilesTotal = allfiles.length
   console.log(`Total number of files in gDrive to backup: ${numFilesTotal}`)
 
   allfiles.map(file => {
     queue.add(() => gdocs.getGFiles(file))
   })
+
 }
 
-cron.schedule('1 0 * * *', run(), {
+const getGFiles = async () => {
+  await gdocs.getOAuth2Client()
+  await file.write(gdocs.getGPaths(), './data/gFiles.json')
+}
+
+/*
+cron.schedule('0 0 * * *', run(), {
   scheduled: true,
   timezone: 'Europe/London'
 })
+
+*/
+
+run()

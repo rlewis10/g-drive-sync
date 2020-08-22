@@ -25,7 +25,7 @@ const gFileContentDownload = (fileObj) => {
 }
 
 // download stream of gdocs files and pipe to destination
-const getGDocsContent = async (pipeTo, fileObj) => { 
+const getGDocsContent = async (writeable, fileObj) => { 
   let mimeTypeSplit = fileObj.mimeType.split('.')
   let mimeTypeLookup = mimeTypeSplit[mimeTypeSplit.length-1]
   let mimeTypeExt = await file.read('./data/gMimeType.json')
@@ -35,24 +35,26 @@ const getGDocsContent = async (pipeTo, fileObj) => {
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
-          .on('end', () => {resolve(console.log(`Done downloading gdocs file: ${fileExt}`))})
-          .on('error', err => {reject(console.error(`Error downloading file ${err}`))})
-          .pipe(pipeTo(fileExt))
+          .pipe(writeable(fileExt))
+          .on('end', () => {console.log(`Done downloading file: ${fileExt}`)})
+          .on('finish', () => {resolve(console.log(`File Backup Complete: ${fileExt}`))}) 
+          .on('error', err => {reject(console.error(`Error downloading file: ${err}`))})
       })
     })
 }
 
 // download stream of NON gdocs files and pipe to destination
-const getGFileContent = async (pipeTo, fileObj) => {  
+const getGFileContent = async (writeable, fileObj) => {  
   let fileExt = fileObj.path.join('/').concat('/',fileObj.name)
 
   return drive.files.get({fileId: fileObj.id, mimeType: fileObj.mimeType, alt: 'media'}, {responseType: 'stream'})
     .then(res => {
       return new Promise((resolve, reject) => {
         res.data
-          .on('end', () => {resolve(console.log(`Done downloading file: ${fileExt}`))})
-          .on('error', err => {reject(console.error(`Error downloading file ${err}`))})
-          .pipe(pipeTo(fileExt))
+          .pipe(writeable(fileExt))
+          .on('end', () => {console.log(`Done downloading file: ${fileExt}`)})
+          .on('finish', () => {resolve(console.log(`File Backup Complete: ${fileExt}`))})
+          .on('error', err => {reject(console.error(`Error downloading file: ${err}`))})
       })
     })
 }

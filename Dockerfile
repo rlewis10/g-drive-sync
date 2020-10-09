@@ -15,4 +15,4 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-CMD [ "npm", "index.js" ]
+CMD [ "node", "./src/index.js"]
